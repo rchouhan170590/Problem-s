@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<math.h>
+void subsetsum(int n,int set[],int run,int sum);
+void SubsetPrint(int n,int set[],int arr[]);
+void PrintSubset(int n,int set[],int run,int arr[],int r);
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int set[n];
+    for(int i=0;i<n;i++)
+      scanf("%d",&set[i]);
+    int m=pow(2,n);
+    int arr[m];
+    
+    //subsetsum(n,set,0,0);   // for a given set print the sum of all it's subset .
+    SubsetPrint(n,set,arr);   // print the all subset of given set.
+    return 0;
+}
+
+void subsetsum(int n,int set[],int run,int sum)
+{
+    if(run>=n)
+    {
+        printf("%d ",sum);
+        return ;
+    }
+    
+    subsetsum(n,set,run+1,sum+set[run]);
+    subsetsum(n,set,run+1,sum);
+
+}
+void SubsetPrint(int n,int set[],int arr[])
+{
+    printf("%d",0);
+    PrintSubset(n,set,0,arr,0);
+    return ;
+}
+void PrintSubset(int n,int set[],int run,int arr[],int r)
+{
+    if(run>=n)
+    {
+        for(int i=0;i<r;i++)
+          printf("%d ",arr[i]);
+        printf("\n");
+        return ;
+    }
+    PrintSubset(n,set,run+1,arr,r);
+    arr[r++]=set[run];
+    PrintSubset(n,set,run+1,arr,r);
+}
